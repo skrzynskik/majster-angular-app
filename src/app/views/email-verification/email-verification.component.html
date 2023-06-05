@@ -1,0 +1,19 @@
+<div class="container flex items-center justify-center mt-10 text-center">
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h3>Thank You for signing up to majster</h3>
+        <div class="container" *ngIf="authService.getUserData() | async as user">
+            <p>An email has been sent to <strong>{{user.email}}</strong></p>
+            <p>Please click on the link in the email to verify your account</p>
+        </div>
+
+        <div class="mt-2">
+            <p>Didn't receive an email?</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+             type="button"
+             (click)="authService.sendVerificationMail()"
+             >
+                Resend Email
+            </button>
+        </div>
+    </div>
+</div>

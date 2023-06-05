@@ -15,6 +15,8 @@ import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { MainViewComponent } from './views/main-view/main-view.component';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { EmailVerificationComponent } from './views/email-verification/email-verification.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 
 
@@ -25,7 +27,9 @@ import { EmailVerificationComponent } from './views/email-verification/email-ver
     SignUpComponent,
     MainViewComponent,
     ForgotPasswordComponent,
-    EmailVerificationComponent
+    EmailVerificationComponent,
+    TopBarComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,

@@ -99,7 +99,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/tailwindcss/dist/tailwind.css",
+              "src/styles.scss",
+              "src/views/main-view/main-view.component.scss"
             ],
             "scripts": []
           }

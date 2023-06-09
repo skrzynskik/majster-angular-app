@@ -17,6 +17,8 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { EmailVerificationComponent } from './views/email-verification/email-verification.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { ContainerViewComponent } from './components/container-view/container-view.component';
+import { ContainerEntryComponent } from './components/container-entry/container-entry.component';
 
 
 
@@ -29,7 +31,9 @@ import { LogoComponent } from './components/logo/logo.component';
     ForgotPasswordComponent,
     EmailVerificationComponent,
     TopBarComponent,
-    LogoComponent
+    LogoComponent,
+    ContainerViewComponent,
+    ContainerEntryComponent
   ],
   imports: [
     BrowserModule,

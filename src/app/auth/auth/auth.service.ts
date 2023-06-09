@@ -32,8 +32,12 @@ export class AuthService {
     )
   }
 
-  public getUserData() {
+  public getUserData(): Observable<User> {
     return this.user$.pipe(user => user)
+  }
+
+  public getUserUid(): Observable<string>  {
+    return this.user$.pipe(map(user => user.uid));
   }
 
   public signIn(email: string, password: string) {

@@ -7,23 +7,24 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { User } from '../../shared/types/user';
-import { Observable, map, of, switchMap } from 'rxjs';
+import {Observable, map, of, switchMap, BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public user$: Observable<any>
+  public userUid$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   constructor(
     private aFirestore: AngularFirestore,
     private aFireauth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone
   ) {
-
     this.user$ = this.aFireauth.authState.pipe(
       switchMap(user => {
         if (user) {
+          this.userUid$.next(user.uid);
           return this.aFirestore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
@@ -37,7 +38,7 @@ export class AuthService {
   }
 
   public getUserUid(): Observable<string>  {
-    return this.user$.pipe(map(user => user.uid));
+    return this.userUid$.asObservable();
   }
 
   public signIn(email: string, password: string) {

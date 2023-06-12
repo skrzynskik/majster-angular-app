@@ -1,36 +1,37 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FirestoreSetService} from "../../firestore/firestore-set.service";
 import {FirestoreGetService} from "../../firestore/firestore-get.service";
-import {Container, ContainerType} from "../../shared/types/contents";
-import {take} from "rxjs";
+import {Container, ContainerIds, ContainerType} from "../../shared/types/contents";
+import {delay, retryWhen, Subscription, take, tap} from "rxjs";
+import {AuthService} from "../../auth/auth/auth.service";
 
 @Component({
   selector: 'app-container-view',
   templateUrl: './container-view.component.html',
   styleUrls: ['./container-view.component.scss']
 })
-export class ContainerViewComponent {
-
+export class ContainerViewComponent implements OnInit {
+  public containers: Container[] = [];
   constructor(
-    private firebaseSet: FirestoreSetService,
-    private firebaseGet: FirestoreGetService
+    private firebaseGet: FirestoreGetService,
   ) { }
 
-  public set() {
-    const testContainer: Container = {
-      containerDescription: "aaa",
-      containerName: "aaa",
-      containerPhotoUrl: "aaa",
-      containerSpaces: [],
-      containerSpacesNumber: 0,
-      containerType: ContainerType.OTHER,
-      id: "ccc"
-    }
-
-    this.firebaseSet.firebaseSetContainer(testContainer);
+  public ngOnInit() {
+    this.fetchUserContainers()
   }
 
-  public get() {
-    this.firebaseGet.firebaseGetContainerById('aaa').pipe(take(1)).subscribe(data => console.log(data))
+  public fetchUserContainers() {
+    this.firebaseGet.firebaseGetUserContainers().pipe(take(1)).subscribe(
+      (containerIds: any) => {
+        console.log(containerIds);
+        this.firebaseGet.firebaseGetContainersByIds(containerIds.containerIds)
+          .pipe(take(1)).subscribe(
+          (containers: Container[]) => {
+            containers = containers.filter(Boolean)
+            this.containers = containers;
+          }
+        )
+      }
+    )
   }
 }

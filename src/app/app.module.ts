@@ -19,6 +19,7 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { ContainerViewComponent } from './components/container-view/container-view.component';
 import { ContainerEntryComponent } from './components/container-entry/container-entry.component';
+import { ContainerBoxComponent } from './components/container-box/container-box.component';
 
 
 
@@ -33,7 +34,8 @@ import { ContainerEntryComponent } from './components/container-entry/container-
     TopBarComponent,
     LogoComponent,
     ContainerViewComponent,
-    ContainerEntryComponent
+    ContainerEntryComponent,
+    ContainerBoxComponent
   ],
   imports: [
     BrowserModule,

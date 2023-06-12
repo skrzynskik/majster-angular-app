@@ -1,17 +1,11 @@
 
 <div class="flex items-center justify-center mt-5">
   <div class="w-full max-w-screen">
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-6">
+    <div class="conview bg-yellow-500 px-8 pt-6 pb-6 mb-4 mx-6">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-        <div class="bg-blue-600 shadow-md rounded">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
-        <div class="bg-black">a</div>
+        <div *ngFor="let container of containers">
+          <app-container-box [container]="container"></app-container-box>
+        </div>
       </div>
     </div>
   </div>

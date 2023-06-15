@@ -1,1 +1,6 @@
-<app-container-view></app-container-view>
+<div>
+  <app-new-room></app-new-room>
+</div>
+<div *ngFor="let room of rooms | async">
+  <app-space-view [room]="room"></app-space-view>
+</div>

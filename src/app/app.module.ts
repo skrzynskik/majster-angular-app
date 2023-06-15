@@ -17,9 +17,14 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { EmailVerificationComponent } from './views/email-verification/email-verification.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { LogoComponent } from './components/logo/logo.component';
-import { ContainerViewComponent } from './components/container-view/container-view.component';
+import { SpaceViewComponent } from './components/space-view/space-view.component';
 import { ContainerEntryComponent } from './components/container-entry/container-entry.component';
 import { ContainerBoxComponent } from './components/container-box/container-box.component';
+import { ItemBoxComponent } from './components/item-box/item-box.component';
+import { NewRoomComponent } from './components/new-room/new-room.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { NewContainerComponent } from './components/new-container/new-container.component';
+import { FormModalComponent } from './components/new-container/form-modal/form-modal.component';
 
 
 
@@ -33,9 +38,13 @@ import { ContainerBoxComponent } from './components/container-box/container-box.
     EmailVerificationComponent,
     TopBarComponent,
     LogoComponent,
-    ContainerViewComponent,
+    SpaceViewComponent,
     ContainerEntryComponent,
-    ContainerBoxComponent
+    ContainerBoxComponent,
+    ItemBoxComponent,
+    NewRoomComponent,
+    NewContainerComponent,
+    FormModalComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,9 @@ import { ContainerBoxComponent } from './components/container-box/container-box.
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Container, ContainerType} from "../../shared/types/contents";
 
 @Component({
@@ -7,14 +7,13 @@ import {Container, ContainerType} from "../../shared/types/contents";
   styleUrls: ['./container-box.component.scss']
 })
 export class ContainerBoxComponent {
-
+  public showModal = false;
   @Input() public container: Container = {
     id: '',
     containerType: ContainerType.OTHER,
     containerName: '',
     containerDescription: '',
-    containerSpacesNumber: 0,
-    containerSpaces: [],
     containerPhotoUrl: ''
   }
+
 }

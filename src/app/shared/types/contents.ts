@@ -1,19 +1,20 @@
+export type Room = {
+  id: string;
+  roomName: string;
+  roomDescription: string;
+  roomPhotoUrl?: string;
+  containers?: Container[];
+}
+
 export type Container = {
   id: string;
   containerName: string;
   containerDescription: string;
   containerType: ContainerType;
-  containerSpacesNumber: number;
-  containerSpaces: Space[];
-  containerPhotoUrl: string;
+  containerPhotoUrl?: string;
+  items?: Item[]
 }
 
-export type Space = {
-  id: string;
-  spaceName: string;
-  spaceDescription: string;
-  spaceItems: Item[];
-}
 export type Item = {
   id: string;
   itemName: string;
@@ -22,8 +23,8 @@ export type Item = {
   itemPhotoUrl: string;
 }
 
-export type ContainerIds = {
-  containerIds: string[];
+export type RoomIds = {
+  roomIds: string[];
 }
 
 export enum ContainerType {

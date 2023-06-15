@@ -1,44 +1,45 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {forkJoin, Observable, Subscription, take} from "rxjs";
-import {Container} from "../shared/types/contents";
 import {AuthService} from "../auth/auth/auth.service";
+import {map, Observable, of, Subscription, tap} from "rxjs";
+import {User} from "../shared/types/user";
+import {Container, Room} from "../shared/types/contents";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreGetService {
-  private uuidSubscription: Subscription = new Subscription();
-  private uid: string = '';
-
+  private userSubscription: Subscription;
+  private userUid: string = '';
+  private rooms: Observable<Room[] | undefined> = of([]);
   constructor(
-    private afs: AngularFirestore,
-    private authService: AuthService
+    private authService: AuthService,
+    private af: AngularFirestore
   ) {
-    this.subscribeToUid()
-  }
-  public firebaseGetContainerById(containerId: string): Observable<Container> {
-    return this.afs.collection('containers').doc(containerId).valueChanges() as Observable<Container>
-  }
-
-  public firebaseGetContainersByIds(containerIds: string[]): Observable<Container[]> {
-    const observables: Observable<Container>[] = containerIds.map((containerId: string) => {
-      return this.firebaseGetContainerById(containerId).pipe(take(1))
-    })
-    return forkJoin(observables)
+    this.userSubscription = this.authService.getUserData().subscribe((user: User) => {
+      this.userUid = user.uid;
+    });
+    this.rooms = this.af.collection<User>('users').doc(this.userUid)
+      .get()
+      .pipe(map( user => {
+        console.log(user.data()?.userRooms)
+        return user.data()?.userRooms
+      }))
   }
 
-  public firebaseGetUserContainers(): Observable<string[]> {
-    console.log(this.uid)
-    return this.afs.collection('user_containers').doc(this.uid).valueChanges() as Observable<string[]>
+  public getRooms(): Observable<Room[] | undefined> {
+    return this.rooms;
   }
 
-  private subscribeToUid() {
-    this.uuidSubscription = this.authService.getUserUid().subscribe(
-      (uid: string) => {
-        this.uid = uid;
-      }
-    )
-  }
-
+  // public getContainers(roomId: string): Observable<Container[] | undefined> {
+  //   return this.rooms.pipe(
+  //     map((rooms: Room[] | undefined) => {
+  //       if (rooms) {
+  //         return rooms[+roomId].containers;
+  //       } else {
+  //         return undefined;
+  //       }
+  //     })
+  //   );
+  // }
 }

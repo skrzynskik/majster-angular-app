@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContainerViewComponent } from './container-view.component';
+import { SpaceViewComponent } from './space-view.component';
 
 describe('ContainerViewComponent', () => {
-  let component: ContainerViewComponent;
-  let fixture: ComponentFixture<ContainerViewComponent>;
+  let component: SpaceViewComponent;
+  let fixture: ComponentFixture<SpaceViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContainerViewComponent ]
+      declarations: [ SpaceViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ContainerViewComponent);
+    fixture = TestBed.createComponent(SpaceViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

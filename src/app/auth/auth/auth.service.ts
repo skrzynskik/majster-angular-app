@@ -14,7 +14,7 @@ import {Observable, map, of, switchMap, BehaviorSubject} from 'rxjs';
 })
 export class AuthService {
   public user$: Observable<any>
-  public userUid$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public userSubject: BehaviorSubject<any> = new BehaviorSubject<any>({});
   constructor(
     private aFirestore: AngularFirestore,
     private aFireauth: AngularFireAuth,
@@ -24,21 +24,25 @@ export class AuthService {
     this.user$ = this.aFireauth.authState.pipe(
       switchMap(user => {
         if (user) {
-          this.userUid$.next(user.uid);
           return this.aFirestore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
       })
     )
+
+    this.aFireauth.authState.subscribe((user: any) => {
+      if (user) {
+        this.userSubject.next(user);
+        localStorage.setItem('user', JSON.stringify(user));
+      } else {
+        localStorage.setItem('user', '');
+      }
+    });
   }
 
   public getUserData(): Observable<User> {
-    return this.user$.pipe(user => user)
-  }
-
-  public getUserUid(): Observable<string>  {
-    return this.userUid$.asObservable();
+    return this.userSubject.asObservable();
   }
 
   public signIn(email: string, password: string) {

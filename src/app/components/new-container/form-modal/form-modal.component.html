@@ -1,0 +1,112 @@
+<div [id]="'newContainerModal_' + roomId" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative w-full max-w-lg max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+          New Container
+        </h3>
+        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="newContainerModal">
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div >
+        <form [formGroup]="containerForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
+          <div class="mx-5 my-2">
+            <div class="mb-6">
+              <label for="containerName" class="block mb-2 text-sm font-medium text-gray-900">Container name: </label>
+              <input type="text"
+                     id="containerName"
+                     class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                     formControlName="containerName"
+                     required
+              >
+              <div *ngIf="containerName.invalid && (containerName.dirty || containerName.touched)">
+                <div *ngIf="containerName.errors?.['required']">
+                  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">Enter room name!!</span> How exactly are you supposed to remember which room is that?
+                  </div>
+                </div>
+                <div *ngIf="containerName.errors?.['minlength']">
+                  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">Name too short!!</span> Don't be so cryptic now?
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <label for="containerDescription" class="block mb-2 text-sm font-medium text-gray-900">Container description: </label>
+              <input type="text"
+                     id="containerDescription"
+                     class=" mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                     formControlName="containerDescription"
+                     required
+              >
+              <div *ngIf="containerDescription.invalid && (containerDescription.dirty || containerDescription.touched)">
+                <div *ngIf="containerDescription.errors?.['required']">
+                  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">Enter room description!!</span> Trust me you'll thank me later
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <label for="room" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select room:</label>
+              <select id="room"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      formControlName="room"
+                      required
+              >
+                <option *ngFor="let room of rooms | async" value={{room.id}}>{{room.roomName}}</option>
+              </select>
+              <div *ngIf="room.invalid && (room.dirty || room.touched)">
+                <div *ngIf="room.errors?.['required']">
+                  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">Choose the room</span> Come on now! Dont make me guess!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <label for="containerType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type:</label>
+              <select id="containerType"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      formControlName="containerType"
+                      required
+              >
+                <option *ngFor="let containerType of containerTypes" value="containerType">{{containerType}}</option>
+              </select>
+              <div *ngIf="containerType.invalid && (containerType.dirty || containerType.touched)">
+                <div *ngIf="containerType.errors?.['required']">
+                  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">Choose furniture type</span> Just choose other if you're that lazy...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+              Enter container name and its description, then figure out if it's a shelf or whatever and I'll take care of the rest
+            </div>
+
+
+            <!--nie chce rozmawiac o tej abominacji-->
+            <button *ngIf="!containerForm.invalid"
+                    type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >Save</button>
+
+            <button *ngIf="containerForm.invalid"
+                    type="button"
+                    class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4"
+                    disabled
+            >Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+
+<div class="flex items-center justify-center mb-3">
+  <div class="w-full max-w-screen">
+    <div class="conview bg-yellow-400 px-8 pt-6 pb-6 mb-4 mx-6">
+      <div class="flex flex-row justify-between mb-2">
+        <h2 style="font-family: 'DM Serif Display'; text-shadow: 0px 0px 30px black" class="text-3xl text-blue-800 mb-3">{{room.roomName}}</h2>
+        <h2 style="font-family: 'DM Serif Display'; text-shadow: 0px 0px 30px black" class="text-3xl text-blue-800 mb-3">{{room.id}}</h2>
+        <app-new-container [roomId]="room.id"></app-new-container>
+      </div>
+      <hr style="border: 2px solid rgb(30 66 159); border-radius: 5px; box-shadow: black 0px 0px 20px 0px" class="mb-4">
+      <div *ngIf="room.containers?.length" class="grid grid-cols-5 gap-3">
+        <div *ngFor="let container of room.containers">
+          <app-container-box [container]="container"></app-container-box>
+        </div>
+      </div>
+      <div *ngIf="!room.containers?.length">
+        <div style="box-shadow: black 0px 0px 10px 0px;" class="p-4 mb-4 text-sm text-yellow-400 rounded-lg bg-blue-800" role="alert">
+          <span class="font-medium">No furniture added!</span> Add some wardrobe or a shelf or idk
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

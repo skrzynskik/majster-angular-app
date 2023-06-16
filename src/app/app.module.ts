@@ -17,14 +17,18 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { EmailVerificationComponent } from './views/email-verification/email-verification.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { LogoComponent } from './components/logo/logo.component';
-import { SpaceViewComponent } from './components/space-view/space-view.component';
-import { ContainerEntryComponent } from './components/container-entry/container-entry.component';
+import { RoomViewComponent } from './components/room-view/room-view.component';
 import { ContainerBoxComponent } from './components/container-box/container-box.component';
 import { ItemBoxComponent } from './components/item-box/item-box.component';
 import { NewRoomComponent } from './components/new-room/new-room.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { SpaceSidebarComponent } from './components/space-sidebar/space-sidebar.component';
+import {NgxSmartModalModule} from "ngx-smart-modal";
+import { RoomBoxComponent } from './components/room-box/room-box.component';
 import { NewContainerComponent } from './components/new-container/new-container.component';
-import { FormModalComponent } from './components/new-container/form-modal/form-modal.component';
+import { NewItemComponent } from './components/new-item/new-item.component';
+import { ItemFormComponent } from './components/new-item/item-form/item-form.component';
+import { ItemTableComponent } from './components/item-table/item-table.component';
 
 
 
@@ -38,16 +42,20 @@ import { FormModalComponent } from './components/new-container/form-modal/form-m
     EmailVerificationComponent,
     TopBarComponent,
     LogoComponent,
-    SpaceViewComponent,
-    ContainerEntryComponent,
+    RoomViewComponent,
     ContainerBoxComponent,
     ItemBoxComponent,
     NewRoomComponent,
+    SpaceSidebarComponent,
+    RoomBoxComponent,
     NewContainerComponent,
-    FormModalComponent
+    NewItemComponent,
+    ItemFormComponent,
+    ItemTableComponent,
   ],
   imports: [
     BrowserModule,
+    NgxSmartModalModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
@@ -55,7 +63,7 @@ import { FormModalComponent } from './components/new-container/form-modal/form-m
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

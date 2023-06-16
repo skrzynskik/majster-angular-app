@@ -1,20 +1,20 @@
-<form [formGroup]="containerForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
+<form [formGroup]="itemForm" #formDir="ngForm">
   <div class="">
     <div>
-      <label for="containerName" class="block mb-2 text-sm font-medium text-gray-900">Container name: </label>
+      <label for="itemName" class="block mb-2 text-sm font-medium text-gray-900">Item name: </label>
       <input type="text"
-             id="containerName"
+             id="itemName"
              class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-             formControlName="containerName"
+             formControlName="itemName"
              required
       >
-      <div *ngIf="containerName.invalid && (containerName.dirty || containerName.touched)">
-        <div *ngIf="containerName.errors?.['required']">
+      <div *ngIf="itemName.invalid && (itemName.dirty || itemName.touched)">
+        <div *ngIf="itemName.errors?.['required']">
           <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border" role="alert">
             <span class="font-medium">Enter container name!!</span> How exactly are you supposed to know which furniture is that?
           </div>
         </div>
-        <div *ngIf="containerName.errors?.['minlength']">
+        <div *ngIf="itemName.errors?.['minlength']">
           <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border" role="alert">
             <span class="font-medium">Name too short!!</span> Don't be so cryptic now?
           </div>
@@ -22,15 +22,15 @@
       </div>
     </div>
     <div class="mb-6">
-      <label for="containerDescription" class="block mb-2 text-sm font-medium text-gray-900">Container description: </label>
+      <label for="itemDescription" class="block mb-2 text-sm font-medium text-gray-900">Item description: </label>
       <textarea type="text"
-             id="containerDescription"
-             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-             formControlName="containerDescription"
-             required
+                id="itemDescription"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                formControlName="itemDescription"
+                required
       ></textarea>
-      <div *ngIf="containerDescription.invalid && (containerDescription.dirty || containerDescription.touched)">
-        <div *ngIf="containerDescription.errors?.['required']">
+      <div *ngIf="itemDescription.invalid && (itemDescription.dirty || itemDescription.touched)">
+        <div *ngIf="itemDescription.errors?.['required']">
           <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border" role="alert">
             <span class="font-medium">Enter room description!!</span> Trust me you'll thank me later
           </div>
@@ -39,17 +39,20 @@
     </div>
 
     <div class="form-group">
-      <label for="containerType"
+      <label for="itemQuantity"
              class="block mb-2 text-sm font-medium text-gray-900"
-      >Type of furniture</label>
-      <select id="containerType"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              formControlName="containerType" required>
-        <option *ngFor="let p of containerTypes" [value]="p">{{p}}</option>
-      </select>
+      >Item quantity: </label>
+      <input type="text"
+             id="itemQuantity"
+             class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+             formControlName="itemQuantity"
+             required
+      >
 
-      <div *ngIf="containerType.invalid && containerType.touched" class="alert alert-danger">
-        <div *ngIf="containerType.errors?.['required']">Power is required.</div>
+      <div *ngIf="itemQuantity.invalid && itemQuantity.touched" class="alert alert-danger">
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border" role="alert">
+          <span class="font-medium">Enter a value higher than 0</span> Schrodinger's items are not supported
+        </div>
       </div>
     </div>
 
@@ -59,13 +62,12 @@
 
 
     <!--nie chce rozmawiac o tej abominacji-->
-    <button *ngIf="!containerForm.invalid"
-            type="submit"
+    <button *ngIf="!itemForm.invalid"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             (click)="onSubmit()"
     >Save</button>
 
-    <button *ngIf="containerForm.invalid"
+    <button *ngIf="itemForm.invalid"
             type="button"
             class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4"
             disabled

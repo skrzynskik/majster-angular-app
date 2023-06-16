@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FirestoreSetService} from "../../firestore/firestore-set.service";
 import {AbstractControl, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {initModals} from "flowbite";
 import {Room} from "../../shared/types/contents";
 import {map, Observable, of} from "rxjs";
 import {FirestoreGetService} from "../../firestore/firestore-get.service";
+import {NgxSmartModalService} from "ngx-smart-modal";
 
 @Component({
   selector: 'app-new-room',
@@ -12,14 +13,20 @@ import {FirestoreGetService} from "../../firestore/firestore-get.service";
   styleUrls: ['./new-room.component.scss']
 })
 export class NewRoomComponent implements OnInit{
+  public roomForm!: FormGroup
+  @Input() room: Room = {
+      containers: [],
+      id: "",
+      roomDescription: "",
+      roomName: "",
+      roomPhotoUrl: ""
+  };
 
-  roomForm!: FormGroup
-  constructor(private fireSet: FirestoreSetService) {
+  constructor(private fireSet: FirestoreSetService, public ngxM: NgxSmartModalService) {
   }
+
   public ngOnInit() {
     initModals()
-
-
 
     this.roomForm = new FormGroup<any>({
       roomName: new FormControl('', [

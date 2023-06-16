@@ -1,0 +1,5 @@
+<app-item-table [items]="savedItems"></app-item-table>
+<app-item-form (savedItem)="saveItem($event)" ></app-item-form>
+<button
+(click)="submitToFirestore()"
+> save all</button>

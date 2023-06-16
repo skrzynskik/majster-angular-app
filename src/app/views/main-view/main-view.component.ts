@@ -11,6 +11,7 @@ import {map, Observable, of, tap} from "rxjs";
 })
 export class MainViewComponent implements OnInit{
   public rooms: Observable<Room[] | undefined> = of(undefined)
+
   constructor(
     private fireSet: FirestoreSetService,
     private fireGet: FirestoreGetService

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Container, ContainerType} from "../../shared/types/contents";
 
 @Component({
@@ -15,5 +15,4 @@ export class ContainerBoxComponent {
     containerDescription: '',
     containerPhotoUrl: ''
   }
-
 }

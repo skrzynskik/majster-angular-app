@@ -27,6 +27,20 @@ export type RoomIds = {
   roomIds: string[];
 }
 
+export type EditAdd = {
+  container: ContainerEditAdd;
+  item: ItemEditAdd
+}
+
+type ContainerEditAdd = {
+  activeAdd: boolean
+  activeEdit: boolean
+}
+
+type ItemEditAdd = {
+  activeAdd: boolean
+  activeEdit: boolean
+}
 export enum ContainerType {
   BOX = 'BOX',
   BAG = 'BAG',

@@ -1,10 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FirestoreSetService} from "../../firestore/firestore-set.service";
-import {initModals} from "flowbite";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Container, ContainerType, Room} from "../../shared/types/contents";
-import {map, Observable, of} from "rxjs";
-import {FirestoreGetService} from "../../firestore/firestore-get.service";
 
 @Component({
   selector: 'app-new-container',
@@ -12,9 +9,11 @@ import {FirestoreGetService} from "../../firestore/firestore-get.service";
   styleUrls: ['./new-container.component.scss']
 })
 export class NewContainerComponent implements OnInit{
-  @Input() public roomId: string = '';
-  public rooms: Observable<Room[] | undefined> = of(undefined)
-
+  @Input() public roomId: string = ''
+  public containerForm!: FormGroup;
+  constructor(
+    private fireSet: FirestoreSetService
+  ) {}
 
   public containerTypes = [
     ContainerType.BOX,
@@ -24,72 +23,46 @@ export class NewContainerComponent implements OnInit{
     ContainerType.CUPBOARD,
     ContainerType.SHELF,
     ContainerType.BASKET,
-    ContainerType.OTHER
+    ContainerType.OTHER,
   ]
-  containerForm!: FormGroup
 
-  constructor(private fireSet: FirestoreSetService, private fireGet: FirestoreGetService) {}
-
-  public ngOnInit() {
-    console.log(this.roomId)
-    initModals()
-
-    this.fireGet.getRooms().pipe(
-      map((rooms: Room[] | undefined) => {
-        if (rooms) {
-          return rooms
-        } else {
-          return undefined
-        }
-      })
-    ).subscribe((rooms: Room[] | undefined) => {
-      this.rooms = of(rooms)
-    })
-
+  public ngOnInit(){
     this.containerForm = new FormGroup<any>({
-      room: new FormControl('', [
-        Validators.required
-      ]),
       containerName: new FormControl('', [
         Validators.required,
         Validators.minLength(3)
       ]),
-      containerDescription: new FormControl(this.roomId, [
-        Validators.required,
+      containerDescription: new FormControl('', [
+        Validators.required
       ]),
-      containerType: new FormControl(this.containerTypes[0], [
+      containerType: new FormControl('', [
         Validators.required
       ])
     })
   }
 
-  public get room(): AbstractControl {
-    return this.containerForm.get('room')!
-  }
-  public get containerName(): AbstractControl {
-    return this.containerForm.get('containerName')!
-  }
-  public get containerDescription(): AbstractControl {
-    return this.containerForm.get('containerDescription')!
-  }
-  public get containerType(): AbstractControl {
-    return this.containerForm.get('containerType')!
-  }
-
-  public onSubmit():void {
+  public onSubmit(): void {
     if(this.containerForm.valid) {
-      console.log(this.containerForm.value)
-
       const container: Container[] = [{
         id: '',
         containerName: this.containerForm.value.containerName,
         containerDescription: this.containerForm.value.containerDescription,
+        containerPhotoUrl: '',
         containerType: this.containerForm.value.containerType
       }]
-
-      this.fireSet.updateUserContainer(this.containerForm.value.room, container)
+      this.fireSet.updateUserContainer(this.roomId,container)
       this.containerForm.reset()
     }
+  }
+
+  public get containerName(): AbstractControl {
+    return this.containerForm.get('containerName')!;
+  }
+  public get containerDescription(): AbstractControl {
+    return this.containerForm.get('containerDescription')!;
+  }
+  public get containerType(): AbstractControl {
+    return this.containerForm.get('containerType')!;
   }
 
 }

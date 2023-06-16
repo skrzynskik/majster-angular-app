@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormModalComponent } from './form-modal.component';
+import { ItemTableComponent } from './item-table.component';
 
-describe('FormModalComponent', () => {
-  let component: FormModalComponent;
-  let fixture: ComponentFixture<FormModalComponent>;
+describe('ItemTableComponent', () => {
+  let component: ItemTableComponent;
+  let fixture: ComponentFixture<ItemTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormModalComponent ]
+      declarations: [ ItemTableComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FormModalComponent);
+    fixture = TestBed.createComponent(ItemTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

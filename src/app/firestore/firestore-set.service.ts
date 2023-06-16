@@ -3,7 +3,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AuthService} from "../auth/auth/auth.service";
 import {map, Observable, Subscription, take, tap} from "rxjs";
 import {User} from "../shared/types/user";
-import {Container, ContainerType, Room} from "../shared/types/contents";
+import {Container, ContainerType, Item, Room} from "../shared/types/contents";
 import firebase from "firebase/compat/app";
 import {user} from "@angular/fire/auth";
 
@@ -37,9 +37,6 @@ export class FirestoreSetService {
           .catch(error => window.alert(`Error creating room: ${error}`))
       }
     })
-    // ref.update({userRooms: firebase.firestore.FieldValue.arrayUnion(...userRoom)})
-    //   .then(() => window.alert("user room created!"))
-    //   .catch(error => window.alert(`Error occured: ${error}`))
   }
 
   public updateUserContainer(roomId: string, userContainer: Container[]): void {
@@ -49,20 +46,57 @@ export class FirestoreSetService {
       take(1),
       map((user) => user.data())
     ).subscribe((user: User | undefined) => {
+      debugger
       const userRooms: Room[] | undefined = user?.userRooms
       if(userRooms) {
         for(let i = 0; i < userRooms.length; i++) {
           if(userRooms[i].id === roomId) {
-            const containers: Container[] | undefined = userRooms[i].containers
+            const containers: Container[] | undefined = userRooms[i].containers || []
             if(containers){
               containers.push(...userContainer)
             }
             userRooms[i].containers = containers;
+            ref.update({userRooms : userRooms})
+              .catch(error => window.alert(`Error creating room: ${error}`))
+            break
           }
-          ref.update({userRooms : userRooms})
-            .then(() => window.alert('Room created'))
-            .catch(error => window.alert(`Error creating room: ${error}`))
         }
+      }
+    })
+  }
+
+  public updateUserItem(roomId: string, containerId: string, userItems: Item[]): void {
+    userItems.forEach(userItem => userItem.id = this.af.createId());
+    const ref = this.af.collection<User>('users').doc(this.userUid)
+    ref.get().pipe(
+      take(1),
+      map(user => user.data())
+    ).subscribe((user: User | undefined) => {
+      debugger
+      const userRooms: Room[] | undefined = user?.userRooms
+      if(userRooms) {
+        for(let i = 0; i < userRooms.length; i++) {
+          if(userRooms[i].id === roomId) {
+            const containers: Container[] | undefined = userRooms[i].containers || []
+            if(containers){
+              for (let j = 0; j< containers.length; j++){
+                if(containers[j].id === containerId){
+                  const items: Item[] | undefined = containers[j].items || [];
+                  if(items) {
+                    items.push(...userItems)
+                  }
+                  containers[j].items = items
+                  break
+                }
+              }
+            }
+            userRooms[i].containers = containers;
+            ref.update({userRooms : userRooms})
+              .catch(error => window.alert(`Error creating room: ${error}`))
+            break
+          }
+        }
+
       }
     })
   }

@@ -1,9 +1,6 @@
-<div>
-  <div>
-    <app-new-room></app-new-room>
-  </div>
-  <div *ngFor="let room of rooms | async" >
-    <app-room-box [room]="room"></app-room-box>
+<app-rooms-header></app-rooms-header>
+<div class="mx-10 my-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div *ngFor="let room of rooms | async">
+    <app-new-room-view [room]="room"></app-new-room-view>
   </div>
 </div>
-

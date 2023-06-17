@@ -46,7 +46,6 @@ export class FirestoreSetService {
       take(1),
       map((user) => user.data())
     ).subscribe((user: User | undefined) => {
-      debugger
       const userRooms: Room[] | undefined = user?.userRooms
       if(userRooms) {
         for(let i = 0; i < userRooms.length; i++) {
@@ -101,8 +100,23 @@ export class FirestoreSetService {
     })
   }
 
-  private removeFromArray(index:number, array:Room[] | Container[]): Room[] | Container[] {
-    array.splice(index,1)
-    return array
+  public deleteUserRoom(roomId: string) {
+    const ref = this.af.collection<User>('users').doc(this.userUid)
+    ref.get().pipe(
+      take(1),
+      map((user) => user.data())
+    ).subscribe((user: User | undefined) => {
+      const userRooms: Room[] | undefined = user?.userRooms
+      if(userRooms) {
+        for(let i = 0; i < userRooms.length; i++) {
+          if(userRooms[i].id === roomId) {
+            userRooms.splice(i, 1);
+            ref.update({userRooms : userRooms})
+              .catch(error => window.alert(`Error creating room: ${error}`))
+            break
+          }
+        }
+      }
+    })
   }
 }

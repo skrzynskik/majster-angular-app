@@ -1,0 +1,33 @@
+<div>
+  <div *ngIf="viewStates === ViewStates.ITEM_VIEW">
+    <h1 class="text-center text-[#33261D] font-bold text-2xl">{{container.containerName}}</h1>
+    <hr class="w-20 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+    <div class="grid grid-cols-1 ">
+      <button class="bg-[#33261D] rounded-2xl drop-shadow-2xl hover:bg-[#5A4B3F] hover:drop-shadow-xl
+                    text-xl text-[#BFAA97] font-bold mx-2 mb-2 text-center"
+              (click)="setItemAddView()"
+      >Add Item </button>
+      <app-item-table (openedItem)="setOpenedItem($event)" [items]="container.items"></app-item-table>
+    </div>
+  </div>
+  <div *ngIf="viewStates === ViewStates.ITEM_ADD">
+    <h1 class="text-center text-[#33261D] font-bold text-2xl">{{container.containerName}}</h1>
+    <hr class="w-20 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+    <app-new-item [roomId]="roomId" [containerId]="container.id"></app-new-item>
+  </div>
+  <div *ngIf="viewStates === ViewStates.ITEM_SPECIFIC_VIEW">
+    <h1 class="text-center text-[#33261D] font-bold text-2xl">{{openedItem.itemName}}</h1>
+    <hr class="w-20 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+    <h2 class=" mt-2 text-center text-[#33261D] font-bold text-xl">Item Quantity</h2>
+    <hr class="w-14 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+    <h3 class="mx-2 my-2 text-center font-bold text-[#33261D] text-l">{{openedItem.itemQuantity}}</h3>
+
+
+    <h2 class=" mt-2 text-center text-[#33261D] font-bold text-xl">Item Description</h2>
+    <hr class="w-14 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+    <div class="mx-5 mt-2 h-24 min-h-24 block border border-[#33261D] rounded-l">
+      <h3 class="mx-2 my-2 text-[#33261D] text-l">{{openedItem.itemDescription}}</h3>
+    </div>
+  </div>
+</div>
+

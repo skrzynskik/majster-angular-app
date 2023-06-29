@@ -1,0 +1,50 @@
+<div class="bg-[#BFAA97] overflow-auto h-96 rounded-2xl shadow-2xl p-3">
+  <div *ngIf="currentViewState === ViewStates.ROOM_VIEW">
+    <div class="flex flex-col items-center mb-3">
+      <h1 class="text-center text-[#33261D] font-bold text-2xl">{{room.roomName}}</h1>
+      <hr class="w-20 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+      <button class=" w-fit bg-[#817061] text-[#CFB9A5] hover:bg-[#5e5247]
+                  focus:ring-0
+                 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-sm px-5 text-center h-10"
+              type="button"
+              (click)="fireSet.deleteUserRoom(room.id)"
+      >Delete Room</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <button class="bg-[#33261D] rounded-2xl drop-shadow-2xl hover:bg-[#5A4B3F] hover:drop-shadow-xl
+                      text-xl text-[#BFAA97] font-bold mx-2 text-center"
+                (click)="setAddNewFurniture()"
+        >Add Furniture</button>
+      <div *ngFor="let container of room.containers">
+        <app-container-box (containerId)="setViewableContainer($event)" [container]="container"></app-container-box>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="currentViewState === ViewStates.CONTAINER_VIEW">
+    <button class="bg-[#817061] text-[#CFB9A5] hover:bg-[#5e5247]
+                  focus:ring-0
+                 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-sm px-5 text-center h-10"
+            type="button"
+            (click)="backToRoomView()"
+    >Go back to room view</button>
+    <div class="grid grid-cols-1">
+      <app-container-view [roomId]="room.id" [container]="openedContainer"></app-container-view>
+    </div>
+  </div>
+  <div *ngIf="currentViewState === ViewStates.CONTAINER_ADD">
+    <button class="bg-[#817061] text-[#CFB9A5] hover:bg-[#5e5247]
+                  focus:ring-0
+                 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-sm px-5 text-center h-10"
+            type="button"
+            (click)="backToRoomView()"
+    >Go back to room view</button>
+    <h1 class="text-center text-[#33261D] font-bold text-2xl">Add new furniture</h1>
+    <hr class="w-20 h-1 mx-auto my-2 bg-[#33261D] border-0 rounded">
+    <div class="grid grid-cols-1">
+      <app-new-container [roomId]="room.id"></app-new-container>
+    </div>
+  </div>
+</div>
+
+

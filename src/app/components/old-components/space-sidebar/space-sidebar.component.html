@@ -1,0 +1,35 @@
+<div class="flex items-center justify-center my-5">
+  <div class="w-full max-w-screen" >
+    <div class="px-8 pt-6 pb-6 h-full">
+        <div *ngIf="!editAdd?.container?.activeAdd && !editAdd?.container?.activeEdit &&
+              !editAdd?.item?.activeAdd && !editAdd?.item?.activeEdit"
+          class="flex flex-col justify-between mb-2 my-2">
+          <div class="flex flex-row justify-between">
+            <h2 class="text-3xl font-bold text-blue-800 mb-3">{{content?.containerName}}</h2>
+            <button class="text-blue-800 bg-yellow-400 hover:bg-yellow-500 focus:ring-0
+                 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm px-5 text-center h-10 "
+                    type="button"
+                    (click)="showItemAddInSideBar()"
+            >Add items</button>
+          </div>
+          <hr style="border: 2px solid rgb(30 66 159); border-radius: 5px" class="mb-4">
+
+          <app-item-table [items]="content?.items"></app-item-table>
+        </div>
+        <div *ngIf="editAdd?.container?.activeAdd && !editAdd?.container?.activeEdit &&
+              !editAdd?.item?.activeAdd && !editAdd?.item?.activeEdit"
+          class="flex flex-col justify-between mb-2">
+          <h2 class="text-3xl font-bold text-blue-800 mb-3">Add new furniture</h2>
+          <hr style="border: 2px solid rgb(30 66 159); border-radius: 5px" class="mb-4">
+          <app-new-container [roomId]="roomId"></app-new-container>
+        </div>
+        <div *ngIf="!editAdd?.container?.activeAdd && !editAdd?.container?.activeEdit &&
+              editAdd?.item?.activeAdd && !editAdd?.item?.activeEdit"
+          class="flex flex-col justify-between mb-2">
+          <h2 class="text-3xl font-bold text-blue-800 mb-3">Add new items - {{content?.containerName}}</h2>
+          <hr style="border: 2px solid rgb(30 66 159); border-radius: 5px" class="mb-4">
+          <app-new-item [roomId]="roomId" [containerId]="content?.id"></app-new-item>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,15 @@
+
+<div class="rounded-2xl drop-shadow-2xl bg-blue-800 mx-5 mb-3 items-center">
+  <div class="grid grid-flow-row-dense md:grid-cols-5 grid-cols-1 gap-4 ">
+    <div class="bg-yellow-500 ml-5 my-5 rounded-2xl drop-shadow-2xl col-span-3">
+      <app-room-view (openedContainer)="showContainerInSideBar($event)" (editAdd)="showAddContainerInSideBar($event)" [room]="room"></app-room-view>
+    </div>
+    <div  class=" bg-yellow-500 my-5 mr-5 rounded-2xl shadow-3xl col-span-2">
+      <app-space-sidebar
+        (itemAdd)="showAddItemInSideBar($event)"
+        [editAdd]="editAdd"
+        [roomId]="room.id"
+        [content]="container"></app-space-sidebar>
+    </div>
+  </div>
+</div>

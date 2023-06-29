@@ -9,5 +9,6 @@ import { AuthService } from 'src/app/auth/auth/auth.service';
 export class SignUpComponent {
   constructor(
     public authService: AuthService
+    
   ) {}
 }

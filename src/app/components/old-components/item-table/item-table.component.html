@@ -1,0 +1,18 @@
+<div class="relative min-h-96 overflow-y-auto drop-shadow-2xl rounded-xl">
+  <table class="w-full text-sm text-left bg-[#817061]">
+    <thead class="text-xs text-[#CFB9A5] uppercase bg-[#817061]">
+    <tr>
+      <th scope="col" class="px-6 py-3">
+        Item Name
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let item of items; let i = index">
+      <tr class="text-[#CFB9A5] bg-[#817061] hover:bg-[#33261D]">
+        <td (click)="openItemInContainerView(item)" class="px-6 py-4">{{ item.itemName }}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>

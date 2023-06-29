@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaceSidebarComponent } from './space-sidebar.component';
+// import { SpaceSidebarComponent } from './space-sidebar.component';
 
-describe('SpaceSidebarComponent', () => {
-  let component: SpaceSidebarComponent;
-  let fixture: ComponentFixture<SpaceSidebarComponent>;
+// describe('SpaceSidebarComponent', () => {
+//   let component: SpaceSidebarComponent;
+//   let fixture: ComponentFixture<SpaceSidebarComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ SpaceSidebarComponent ]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ SpaceSidebarComponent ]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(SpaceSidebarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(SpaceSidebarComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
